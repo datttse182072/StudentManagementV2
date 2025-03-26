@@ -4,9 +4,117 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentManagement"
+        xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="School Management System - Login" 
+        Height="450" Width="600" 
+        WindowStartupLocation="CenterScreen">
+    
+    <!-- Các kiểu dùng chung cho các điều khiển UI -->
+    <!-- Định nghĩa các style chung để đảm bảo giao diện nhất quán -->
+    <Window.Resources>
+        <!-- Kiểu cho TextBlock: thiết lập margin cho tất cả TextBlock -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,5,0,2"/>
+        </Style>
+        
+        <!-- Kiểu cho TextBox: thiết lập padding và margin -->
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        
+        <!-- Kiểu cho PasswordBox: thiết lập padding và margin -->
+        <Style TargetType="PasswordBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        
+        <!-- Kiểu cho Button: thiết lập padding và margin -->
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="15,5"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+    </Window.Resources>
 
+    <!-- Grid chính chứa toàn bộ giao diện -->
+    <Grid>
+        <!-- Border tạo khung cho form đăng nhập với góc bo tròn -->
+        <Border Background="#f0f0f0" 
+                BorderBrush="#dddddd" 
+                BorderThickness="1" 
+                CornerRadius="8" 
+                Padding="20" 
+                Width="350" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+
+            <!-- StackPanel chứa các điều khiển UI theo chiều dọc -->
+            <StackPanel>
+                <!-- Tiêu đề của ứng dụng -->
+                <TextBlock Text="School Management System" 
+                          FontSize="20" 
+                          FontWeight="Bold" 
+                          HorizontalAlignment="Center" 
+                          Margin="0,0,0,20"/>
+                
+                <!-- Logo trường học (sử dụng TextBlock làm placeholder nếu hình ảnh không tồn tại) -->
+                <Border Width="100" 
+                        Height="100" 
+                        Background="#2196F3" 
+                        CornerRadius="50" 
+                        Margin="0,0,0,20" 
+                        HorizontalAlignment="Center">
+                    <TextBlock Text="SMS" 
+                               Foreground="White" 
+                               FontSize="30" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"/>
+                </Border>
+                
+                <!-- Nhãn và ô nhập tên đăng nhập -->
+                <!-- Binding đến thuộc tính Username của ViewModel với cập nhật ngay khi thay đổi -->
+                <TextBlock Text="Username"/>
+                <TextBox x:Name="txtUsername" 
+                        Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <!-- Nhãn và ô nhập mật khẩu -->
+                <!-- PasswordBox không hỗ trợ binding, sẽ được xử lý trong code-behind -->
+                <TextBlock Text="Password"/>
+                <PasswordBox x:Name="txtPassword" 
+                           Margin="0,0,0,5"/>
+                
+                <!-- Hiển thị thông báo lỗi nếu có -->
+                <!-- Binding đến thuộc tính ErrorMessage của ViewModel -->
+                <TextBlock Text="{Binding ErrorMessage}" 
+                          Foreground="Red" 
+                          TextWrapping="Wrap"/>
+                
+                <!-- Nút đăng nhập -->
+                <!-- Binding command đến LoginCommand của ViewModel -->
+                <!-- Vô hiệu hóa nút khi đang trong quá trình đăng nhập thông qua converter -->
+                <Button x:Name="btnLogin" 
+                       Content="Login" 
+                       Background="#2196F3" 
+                       Foreground="White" 
+                       Command="{Binding LoginCommand}" 
+                       IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"/>
+                
+                <!-- Hiển thị thông báo "Đang đăng nhập..." khi IsLoading = true -->
+                <!-- Sử dụng converter để chuyển đổi boolean thành Visibility -->
+                <TextBlock Text="Logging in..." 
+                          HorizontalAlignment="Center" 
+                          Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Margin="0,10,0,0"/>
+                
+                <!-- Thông tin bản quyền ở cuối form -->
+                <TextBlock Text="© 2025 School Management System" 
+                          FontSize="10" 
+                          Foreground="Gray" 
+                          HorizontalAlignment="Center" 
+                          Margin="0,20,0,0"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -2,8 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:StudentManagement"
+             xmlns:converters="clr-namespace:StudentManagement.Converters"
              StartupUri="MainWindow.xaml">
+    <!-- StartupUri chỉ định cửa sổ ban đầu khi ứng dụng khởi động -->
+    
     <Application.Resources>
-         
+        <!-- ResourceDictionary chứa các tài nguyên dùng chung trong toàn ứng dụng -->
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
     </Application.Resources>
 </Application>
