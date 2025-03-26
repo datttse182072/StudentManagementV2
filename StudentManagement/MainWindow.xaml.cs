@@ -11,6 +11,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StudentManagement.Models;
 using StudentManagement.ViewModels;
+using StudentManagement.Helper;
 
 namespace StudentManagement
 {
@@ -70,27 +71,8 @@ namespace StudentManagement
         /// </summary>
         private void OnLoginSuccessful(object sender, Account account)
         {
-            // Chuyển hướng đến màn hình thích hợp dựa trên vai trò của người dùng
-            // Trong ứng dụng thực tế, sẽ mở cửa sổ mới hoặc chuyển đổi View
-            
-            switch (account.Role)
-            {
-                case "Admin":
-                    // Chuyển đến bảng điều khiển admin hoặc mở cửa sổ admin
-                    // Đây chỉ là mã giả - trong ứng dụng thực tế sẽ mở AdminWindow
-                    MessageBox.Show("Admin dashboard would open here");
-                    break;
-                case "Teacher":
-                    // Chuyển đến bảng điều khiển giáo viên hoặc mở cửa sổ giáo viên
-                    // Đây chỉ là mã giả - trong ứng dụng thực tế sẽ mở TeacherWindow
-                    MessageBox.Show("Teacher dashboard would open here");
-                    break;
-                case "Student":
-                    // Chuyển đến bảng điều khiển sinh viên hoặc mở cửa sổ sinh viên
-                    // Đây chỉ là mã giả - trong ứng dụng thực tế sẽ mở StudentWindow
-                    MessageBox.Show("Student dashboard would open here");
-                    break;
-            }
+            // Sử dụng NavigationHelper để chuyển hướng đến màn hình tương ứng với vai trò
+            NavigationHelper.NavigateToRoleBasedWindow(account, this);
         }
     }
 }

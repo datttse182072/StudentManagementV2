@@ -187,6 +187,7 @@ namespace StudentManagement.ViewModels
         /// Phương thức kiểm tra xem lệnh có thể được thực thi không
         /// </summary>
         private readonly Predicate<object> _canExecute;
+        private Action logout;
 
         /// <summary>
         /// Constructor khởi tạo lệnh với phương thức thực thi và kiểm tra
@@ -201,6 +202,11 @@ namespace StudentManagement.ViewModels
             
             // Gán phương thức kiểm tra (có thể null)
             _canExecute = canExecute;
+        }
+
+        public RelayCommand(Action logout)
+        {
+            this.logout = logout;
         }
 
         /// <summary>
